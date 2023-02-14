@@ -28,6 +28,7 @@ export interface MieleStatusResponseTemp {
 export interface MieleStatusResponse {
   status: {value_raw: number};
   programPhase: {value_raw: number};
+  ventilationStep: {value_raw: number};
   remainingTime: number[];
   temperature: MieleStatusResponseTemp[];
   targetTemperature: MieleStatusResponseTemp[];

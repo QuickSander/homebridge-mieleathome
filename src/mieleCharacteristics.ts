@@ -537,3 +537,54 @@ export class MieleOnCharacteristic extends MieleBaseCharacteristic {
     this.updateCharacteristic(value);
   }
 }
+
+//-------------------------------------------------------------------------------------------------
+// Base class: Miele VapourOn Characteristic
+//-------------------------------------------------------------------------------------------------
+export class MieleVapourOnCharacteristic extends MieleBaseCharacteristic {      
+  
+  constructor(
+    platform: MieleAtHomePlatform,
+    service: Service
+  ) {
+    super(platform, service, platform.Characteristic.On, false);
+  }
+
+  update(response: MieleStatusResponse): void {
+    this.platform.log.debug(`${this.deviceName}: Update received for ${this.characteristic.name} raw value: ${response.ventilationStep.value_raw}.`);
+
+    const value = response.ventilationStep.value_raw > 0 ? true : false;
+    this.updateCharacteristic(value);
+  }
+}
+
+//-------------------------------------------------------------------------------------------------
+// Base class: Miele RotationSpeed Characteristic
+//-------------------------------------------------------------------------------------------------
+export class MieleRotationSpeedCharacteristic extends MieleBaseCharacteristic {      
+  
+  constructor(
+    platform: MieleAtHomePlatform,
+    service: Service
+  ) {
+    super(platform, service, platform.Characteristic.RotationSpeed, 0);
+  }
+
+  update(response: MieleStatusResponse): void {
+    this.platform.log.debug(`${this.deviceName}: Update received for ${this.characteristic.name} raw value: ${response.ventilationStep.value_raw}.`);
+
+    let value = response.ventilationStep.value_raw * 25;
+
+    // Clip to min and max value.
+    const characteristicObj = this.service.getCharacteristic(this.characteristic);
+    const maxValue = characteristicObj.props.maxValue;
+    const minValue = characteristicObj.props.minValue;
+
+    if(maxValue && minValue) {
+      value = value > maxValue ? maxValue : value;
+      value = value < minValue ? minValue : value;
+    }
+
+    this.updateCharacteristic(value);
+  }
+}

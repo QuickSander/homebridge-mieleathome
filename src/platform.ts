@@ -8,6 +8,7 @@ import { MieleHoodPlatformAccessory } from './mieleHoodPlatformAccessory';
 import { MieleWasherDryerPlatformAccessory } from './mieleWasherDryerPlatformAccessory';
 import { MieleFridgePlatformAccessory } from './mieleFridgePlatformAccessory';
 import { MieleCoffeeSystemPlatformAccessory } from './mieleCoffeeSystemPlatformAccessory';
+import { MieleHobVapourPlatformAccessory } from './mieleHobVapourPlatformAccessory';
 import { Token } from './token';
 
 import axios from 'axios';
@@ -39,6 +40,7 @@ enum MieleDeviceIds {
   Freezer = 20,
   FridgeFreezer = 21,
   WasherDryer = 24,
+  HobVapour = 74,
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -215,6 +217,9 @@ export class MieleAtHomePlatform implements DynamicPlatformPlugin {
 
       case MieleDeviceIds.CoffeeSystem:
         return new MieleCoffeeSystemPlatformAccessory(this, accessory);
+
+      case MieleDeviceIds.HobVapour:
+        return new MieleHobVapourPlatformAccessory(this, accessory);
     
       default:
         return null;

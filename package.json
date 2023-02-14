@@ -1,8 +1,8 @@
 {
   "private": false,
   "displayName": "Miele@home",
-  "name": "homebridge-mieleathome",
-  "version": "0.0.0-development",
+  "name": "@wimaha/homebridge-mieleathome",
+  "version": "0.0.2-development",
   "description": "A start for supporting Miele@home devices",
   "license": "Apache-2.0",
   "repository": {
