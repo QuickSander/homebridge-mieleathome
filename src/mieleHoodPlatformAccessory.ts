@@ -228,7 +228,7 @@ export class MieleHoodPlatformAccessory {
 
       this.platform.log.debug('Fan Step -> ', response.ventilationStep.value_raw);
 
-      if (response.ventilationStep.value_raw === 0) {
+      if (response.ventilationStep.value_raw === 0 || response.ventilationStep.value_raw === null ) {
         this.States.FanOn = false;
       } else {
         this.States.FanOn = true;
