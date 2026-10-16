@@ -98,7 +98,13 @@ export abstract class MieleBasePlatformAccessory {
     // Data update.
     this.eventSource.addEventListener('device', (event) => {
       this.platform.log.debug(`${this.accessory.context.device.displayName}: Event '${event.type}' received.`);
-      const data = JSON.parse(event['data']);
+      let data;
+      try {
+        data = JSON.parse(event['data']);
+      } catch(error) {
+        this.platform.log.error(`${this.accessory.context.device.displayName}: Failed to parse Miele device event: ${String(error)}`);
+        return;
+      }
       this.update(data.state);
     });
 

@@ -476,7 +476,7 @@ export class MieleTemperatureUnitCharacteristic extends MieleBaseCharacteristic 
   update(response: MieleStatusResponse): void {
     let value = this.platform.Characteristic.TemperatureDisplayUnits.CELSIUS;
     
-    if(response.temperature[0].unit === 'Fahrenheit' ) {
+    if(response.temperature?.[0]?.unit === 'Fahrenheit' ) {
       value = this.platform.Characteristic.TemperatureDisplayUnits.FAHRENHEIT;
     }
 
